@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>游戏测试页面</title>
+</head>
+<body>
+    <h1>✅ 如果你看到这个页面，说明浏览器可以正常加载文件</h1>
+    <p>文件路径：C:\Users\Admin\.openclaw\workspace\tower-defense\</p>
+    <p>时间：<span id="time"></span></p>
+    <hr>
+    <h2>游戏文件检查：</h2>
+    <ul>
+        <li>index.html: <span id="indexStatus">检查中...</span></li>
+        <li>game.js: <span id="jsStatus">检查中...</span></li>
+    </ul>
+    <hr>
+    <h2>跳转到游戏：</h2>
+    <a href="index.html" style="font-size: 20px; padding: 20px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">🎮 点击这里开始游戏</a>
+    
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 检查文件
+        fetch('index.html')
+            .then(r => {
+                if (r.ok) document.getElementById('indexStatus').textContent = '✅ 存在 (' + r.headers.get('content-length') + ' 字节)';
+                else document.getElementById('indexStatus').textContent = '❌ 无法访问';
+            })
+            .catch(e => document.getElementById('indexStatus').textContent = '❌ 错误：' + e.message);
+        
+        fetch('game.js')
+            .then(r => {
+                if (r.ok) document.getElementById('jsStatus').textContent = '✅ 存在 (' + r.headers.get('content-length') + ' 字节)';
+                else document.getElementById('jsStatus').textContent = '❌ 无法访问';
+            })
+            .catch(e => document.getElementById('jsStatus').textContent = '❌ 错误：' + e.message);
+    </script>
+</body>
+</html>

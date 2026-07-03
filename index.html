@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>🏰 魔法方块王国 - 塔防游戏 v1.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .game-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-header h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 20px #e94560, 0 0 40px #e94560;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #e94560, 0 0 40px #e94560; }
+            to { text-shadow: 0 0 30px #ff6b6b, 0 0 60px #ff6b6b; }
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background: rgba(233, 69, 96, 0.2);
+            border: 2px solid #e94560;
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .stat-box .label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-box .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .main-game {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .game-canvas-container {
+            flex: 1;
+            min-width: 800px;
+        }
+        
+        #gameCanvas {
+            background: #2d4a22;
+            border: 4px solid #8b4513;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
+            cursor: crosshair;
+        }
+        
+        .side-panel {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .panel {
+            background: rgba(22, 33, 62, 0.8);
+            border: 2px solid #0f3460;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .panel h3 {
+            color: #e94560;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e94560;
+            padding-bottom: 5px;
+        }
+        
+        .tower-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .tower-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid #4a4a6a;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .tower-card:hover {
+            border-color: #e94560;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        .tower-card.selected {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+        
+        .tower-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .tower-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .tower-name {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+        
+        .tower-cost {
+            color: #ffd700;
+            font-size: 0.85em;
+        }
+        
+        .tower-level {
+            color: #90EE90;
+            font-size: 0.75em;
+            margin-top: 3px;
+        }
+        
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            border: 2px solid #e94560;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .wave-info {
+            text-align: center;
+            padding: 10px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .game-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #e94560;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .game-message h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .game-message.show {
+            display: block;
+            animation: popIn 0.3s ease-out;
+        }
+        
+        @keyframes popIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .upgrade-panel {
+            display: none;
+        }
+        
+        .upgrade-panel.show {
+            display: block;
+        }
+        
+        .upgrade-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .upgrade-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #2d5016, #3d6b1f);
+            border: 2px solid #4a8a2a;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upgrade-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #3d6b1f, #4a8a2a);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(74, 138, 42, 0.4);
+        }
+        
+        .upgrade-btn:active:not(:disabled) {
+            transform: translateX(5px) scale(0.98);
+        }
+        
+        .upgrade-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-color: #555;
+        }
+        
+        /* 按钮点击动画 */
+        .upgrade-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .upgrade-btn:active::after {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .selected-tower-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-game {
+                flex-direction: column;
+            }
+            
+            .game-canvas-container {
+                min-width: auto;
+            }
+            
+            #gameCanvas {
+                width: 100%;
+                height: auto;
+            }
+            
+            .side-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>🏰 魔法方块王国 🏰</h1>
+            <p style="opacity: 0.8; margin-top: 10px;">保卫你的王国，击败邪恶生物！</p>
+        </div>
+        
+        <div class="game-stats">
+            <div class="stat-box">
+                <div class="label">💰 金币</div>
+                <div class="value" id="goldDisplay">100</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">❤️ 生命</div>
+                <div class="value" id="livesDisplay">20</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">🌊 波次</div>
+                <div class="value" id="waveDisplay">1</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">👾 敌人</div>
+                <div class="value" id="enemiesDisplay">0</div>
+            </div>
+        </div>
+        
+        <div class="main-game">
+            <div class="game-canvas-container">
+                <canvas id="gameCanvas" width="1000" height="600"></canvas>
+            </div>
+            
+            <div class="side-panel">
+                <div class="panel">
+                    <h3>🎯 选择防御塔</h3>
+                    <div class="tower-selection" id="towerSelection">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="panel upgrade-panel" id="upgradePanel">
+                    <h3>⬆️ 升级防御塔</h3>
+                    <div class="selected-tower-info" id="selectedTowerInfo"></div>
+                    <div class="upgrade-options" id="upgradeOptions"></div>
+                </div>
+                
+                <div class="panel">
+                    <h3>🎮 游戏控制</h3>
+                    <div class="game-controls">
+                        <button class="btn btn-primary" id="startWaveBtn">🌊 开始波次</button>
+                        <button class="btn btn-secondary" id="saveGameBtn">💾 保存</button>
+                        <button class="btn btn-secondary" id="loadGameBtn">📂 加载</button>
+                    </div>
+                    <div class="wave-info" id="waveInfo">
+                        准备迎接第一波敌人！
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h3>📖 游戏说明</h3>
+                    <div style="font-size: 0.85em; line-height: 1.6; opacity: 0.9;">
+                        <p>🏗️ <strong>建造:</strong> 点击塔，再点击地图绿色区域</p>
+                        <p>⬆️ <strong>升级:</strong> 点击已建造的塔进行升级</p>
+                        <p>💰 <strong>金币:</strong> 击败敌人获得金币</p>
+                        <p>❤️ <strong>生命:</strong> 敌人到达终点会扣生命</p>
+                        <p>🌊 <strong>波次:</strong> 共 15 波，越来越难！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-message" id="gameMessage">
+        <h2 id="messageTitle">游戏结束!</h2>
+        <p id="messageText">你成功保卫了王国!</p>
+        <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">🔄 重新开始</button>
+    </div>
+    
+    <div id="debugInfo" style="position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px; font-size: 12px; color: #0f0; z-index: 9999;"></div>
+    
+    <script>
+        // 调试信息
+        const debugDiv = document.getElementById('debugInfo');
+        debugDiv.innerHTML = '🔄 游戏加载中...<br>文件：game.js<br>时间：' + new Date().toLocaleTimeString();
+    </script>
+    <script src="game.js?v=2026032811"></script>
+</body>
+</html>
