@@ -1,41 +1,72 @@
-# Tower Defense
+# 馃彴 榄旀硶鏂瑰潡鐜嬪浗 - 濉旈槻娓告垙
 
-A classic HTML5 tower defense game. Build towers to stop enemies!
+**淇濆崼浣犵殑鐜嬪浗锛?* 涓€娆?Minecraft 椋庢牸鐨?HTML5 濉旈槻娓告垙锛屽缓閫犻槻寰″銆佸崌绾ц嫳闆勩€佸嚮璐?30 娉㈡€墿澶у啗锛?
+![HTML5](https://img.shields.io/badge/HTML5-Canvas-orange)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## How to Play
+## 鉁?娓告垙鐗硅壊
 
-- **Mouse Click**: Select and place defense towers
-- **Upgrade**: Click placed tower to upgrade
-- **Strategy**: Place towers wisely to cover the path
+- **馃彈锔?6 绉嶉槻寰″**锛氱濉斻€佺伀鐒板銆佸啺鍐诲銆侀棯鐢靛銆佺嫏鍑诲銆佸彫鍞ゅ
+- **馃懢 12 绉嶆晫浜?*锛氬彶鑾卞銆侀楂呫€佽嫤鍔涙€曘€佸兊灏搞€佽湗铔涖€佹湯褰变汉...杩樻湁 Boss锛?- **馃悏 5 澶?Boss**锛氭湯褰遍緳銆侀瓟鐜嬨€侀楂呯帇銆佸菇鐏电帇銆佺煶榄斿儚
+- **馃椇锔?铻烘棆璺嚎**锛氱簿蹇冭璁＄殑澶嶆潅鍦板浘璺緞
+- **鈿?鐗规畩鏁堟灉**锛氱噧鐑с€佸啺鍐汇€佽繛閿侀棯鐢点€佸彫鍞ゅ菇鐏?- **馃挵 缁忔祹绯荤粺**锛氬嚮鏉€鑾峰緱閲戝竵锛屽悎鐞嗗垎閰嶈祫婧?- **馃幆 30 娉㈡寫鎴?*锛氭瘡娉㈤兘鏈?Boss锛屽湴鐙遍毦搴︼紒
 
-## Run
+## 馃殌 蹇€熷紑濮?
+**鏃犻渶瀹夎锛屾墦寮€鍗崇帺锛?*
 
-Just open index.html in any modern browser.
+1. 鍏嬮殕鎴栦笅杞芥湰浠撳簱
+2. 鐢ㄦ祻瑙堝櫒鎵撳紑 `index.html`
+3. 寮€濮嬫父鎴忥紒
 
-## Project Structure
+鎴栬€呯洿鎺ュ湪 GitHub Pages 涓婄帺锛堝鏋滃凡閮ㄧ讲锛夈€?
+## 馃幃 鎿嶄綔鏂瑰紡
 
-`
+- **榧犳爣鐐瑰嚮**锛氶€夋嫨闃插尽濉?鈫?鐐瑰嚮鍦板浘鏀剧疆
+- **鐐瑰嚮宸叉斁缃殑濉?*锛氭煡鐪嬩俊鎭?/ 鍗囩骇
+- **鍚堢悊甯冨眬**锛氬湪璺緞涓や晶鏀剧疆闃插尽濉?
+## 馃彈锔?闃插尽濉斾竴瑙?
+| 濉?| 璐圭敤 | 浼ゅ | 鐗规晥 |
+|----|------|------|------|
+| 馃徆 绠 | 50 | 20 | 鍩虹楂樻€т环姣?|
+| 馃敟 鐏劙濉?| 100 | 35 | 鎸佺画鐕冪儳浼ゅ |
+| 鉂勶笍 鍐板喕濉?| 120 | 15 | 鍑忛€熸晫浜?50% |
+| 鈿?闂數濉?| 150 | 50 | 杩為攣 3 涓洰鏍?|
+| 馃幆 鐙欏嚮濉?| 250 | 150 | 瓒呰繙灏勭▼ |
+| 馃懟 鍙敜濉?| 200 | - | 鍙敜骞界伒鍔╂垬 |
+
+## 馃懢 鏁屼汉涓€瑙?
+| 鏁屼汉 | 鐢熷懡 | 閫熷害 | 璇存槑 |
+|------|------|------|------|
+| 馃挌 鍙茶幈濮?| 120 | 蹇?| 鍩虹灏忔€?|
+| 馃拃 楠烽珔 | 180 | 涓?| 绋嶇‖鐨勬€?|
+| 馃挜 鑻﹀姏鎬?| 150 | 蹇?| 鐖嗙偢浼ゅ楂?|
+| 馃 鍍靛案 | 300 | 鎱?| 琛€鍘?|
+| 馃暦锔?铚樿洓 | 140 | 鏋佸揩 | 閫熷害鍨?|
+| 馃憗锔?鏈奖浜?| 280 | 涓?| 楂樺鍔?|
+| 馃鈥嶁檧锔?濂冲帆 | 220 | 鎱?| 浼氭不鐤楅槦鍙?|
+| 馃悏 鏈奖榫?| 1200 | 鎱?| Boss锛?|
+| 馃懝 榄旂帇 | 2000 | 鏋佹參 | 瓒呯骇 Boss锛?|
+
+## 馃洜锔?鎶€鏈疄鐜?
+```
 tower-defense/
-- index.html       # Main game file
-- game.js          # Game logic
-- test.html        # Test page
-- README.md        # Documentation
-- DIAGNOSTICS.md   # Diagnostic report
-- TEST-REPORT.md   # Test report
-`
+鈹溾攢鈹€ index.html    # 娓告垙涓婚〉闈?鈹溾攢鈹€ game.js       # 娓告垙閫昏緫锛圕anvas 娓叉煋锛?鈹溾攢鈹€ test.html     # 娴嬭瘯椤甸潰
+鈹斺攢鈹€ README.md     # 璇存槑鏂囨。
+```
 
-## Future Plans
+- **娓叉煋**锛欻TML5 Canvas 2D
+- **鏋舵瀯**锛氱函 JavaScript锛屾棤妗嗘灦渚濊禆
+- **鍦板浘**锛氱綉鏍肩郴缁?+ 棰勮璺緞
+- **鎴樻枟**锛氱鎾炴娴?+ 寮归亾绯荤粺
 
-- [ ] More tower types
-- [ ] More levels
-- [ ] Sound effects and music
-- [ ] Leaderboard
+## 馃摑 寮€鍙戣鍒?
+- [ ] 鏇村濉旂被鍨?- [ ] 澶氬叧鍗?澶氬湴鍥?- [ ] 闊虫晥鍜岃儗鏅煶涔?- [ ] 鎺掕姒?- [ ] 绉诲姩绔Е灞忛€傞厤
 
-## License
-
+## 馃搫 璁稿彲璇?
 MIT License
 
 ---
 
-**Author**: rickyman0204
-**Tech**: HTML5 + JavaScript
+**浣滆€?*: 寮€寮€澶т汉 (rickyman0204)
+**鎶€鏈爤**: HTML5 + Canvas + JavaScript
